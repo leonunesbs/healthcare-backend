@@ -2,6 +2,7 @@ import graphene
 from core.models import Evaluation, Patient, Service, Unit
 from core.schema.nodes import (EvaluationNode, PatientNode, ServiceNode,
                                UnitNode)
+from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from graphql import GraphQLError
 from graphql_relay import from_global_id
@@ -40,6 +41,9 @@ class CreateEvaluation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, patient_id, service_id, content):
+        if not info.context.user.is_authenticated is False:
+            raise GraphQLError(
+                _('You must be logged in to create an evaluation.'))
         try:
             patient = Patient.objects.get(id=from_global_id(patient_id)[1])
             service = Service.objects.get(id=from_global_id(service_id)[1])
@@ -49,6 +53,7 @@ class CreateEvaluation(graphene.Mutation):
             raise GraphQLError(_('Service does not exist'))
 
         evaluation, created = Evaluation.objects.get_or_create(
+            # User.objects.all().first().colaborator
             colaborator=info.context.user.colaborator,
             patient=patient,
             service=service,

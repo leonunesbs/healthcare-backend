@@ -4,6 +4,8 @@ from graphene_django import DjangoObjectType
 
 
 class ColaboratorNode(DjangoObjectType):
+    full_name = graphene.String()
+
     class Meta:
         model = Colaborator
         filter_fields = []
@@ -18,6 +20,8 @@ class EvaluationNode(DjangoObjectType):
 
 
 class PatientNode(DjangoObjectType):
+    age = graphene.String()
+
     class Meta:
         model = Patient
         filter_fields = {

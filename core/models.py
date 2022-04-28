@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ValidationError
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 
@@ -61,6 +62,10 @@ class Colaborator(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def full_name(self):
+        return f'{self.name} {self.surname}'
+
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
 
@@ -84,6 +89,12 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.full_name
+
+    @property
+    def age(self):
+        today = timezone.now()
+        return today.year - self.birth_date.year - \
+            ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
