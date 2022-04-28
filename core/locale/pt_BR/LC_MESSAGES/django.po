@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-27 09:58-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: core/models.py:9 core/models.py:30 core/models.py:51
+msgid "name"
+msgstr "nome"
+
+#: core/models.py:10
+msgid "unit name"
+msgstr "nome da unidade"
+
+#: core/models.py:14 core/models.py:25 core/models.py:26
+msgid "unit"
+msgstr "unidade"
+
+#: core/models.py:15
+msgid "units"
+msgstr "unidades"
+
+#: core/models.py:31
+msgid "service name"
+msgstr "sobrenome"
+
+#: core/models.py:35 core/models.py:36 core/models.py:59
+msgid "colaborators"
+msgstr "colaboradores"
+
+#: core/models.py:42 core/models.py:111
+msgid "service"
+msgstr "serviço"
+
+#: core/models.py:43
+msgid "services"
+msgstr "serviços"
+
+#: core/models.py:52
+msgid "surname"
+msgstr "sobrenome"
+
+#: core/models.py:53
+msgid "email"
+msgstr "email"
+
+#: core/models.py:54 core/models.py:77
+msgid "phone"
+msgstr "telefone"
+
+#: core/models.py:55
+msgid "role"
+msgstr "função"
+
+#: core/models.py:58 core/models.py:115 core/models.py:140
+msgid "colaborator"
+msgstr "colaborador"
+
+#: core/models.py:73
+msgid "full name"
+msgstr "nome completo"
+
+#: core/models.py:74
+msgid "birth date"
+msgstr "data de nascimento"
+
+#: core/models.py:79
+msgid "CPF"
+msgstr "CPF"
+
+#: core/models.py:82 core/models.py:113 core/models.py:134
+msgid "patient"
+msgstr "paciente"
+
+#: core/models.py:83
+msgid "patients"
+msgstr "pacientes"
+
+#: core/models.py:98 core/models.py:123
+msgid "evaluation"
+msgstr "evolução"
+
+#: core/models.py:102
+msgid "evaluation attachment"
+msgstr "anexo de evolução"
+
+#: core/models.py:103
+msgid "evaluation attachments"
+msgstr "anexos de evolução"
+
+#: core/models.py:116 core/models.py:142
+msgid "content"
+msgstr "conteúdo"
+
+#: core/models.py:118 core/models.py:146
+msgid "created at"
+msgstr "criado em"
+
+#: core/models.py:120
+msgid "updated at"
+msgstr "atualizado em"
+
+#: core/models.py:124
+msgid "evaluations"
+msgstr "evoluções"
+
+#: core/models.py:129 core/models.py:149
+msgid "prescription"
+msgstr "prescrição"
+
+#: core/models.py:144
+msgid "prescription date"
+msgstr "data da prescrição"
+
+#: core/models.py:150
+msgid "prescriptions"
+msgstr "prescrição"
+
+#: core/schema/mutation.py:47 core/schema/mutation.py:139
+msgid "Patient does not exist"
+msgstr "Paciente não existe"
+
+#: core/schema/mutation.py:49 core/schema/mutation.py:133
+msgid "Service does not exist"
+msgstr "Serviço não existe"
+
+#: core/schema/mutation.py:110
+msgid "Unit does not exist"
+msgstr "Unidade não existe"
+
+#: core/schema/query.py:22 core/schema/query.py:28
+msgid "You are not allowed to access this data"
+msgstr "Você não está autorizado a acessar esta informação"
+
+#~ msgid "attachment"
+#~ msgstr "anexos"
+
+#~ msgid "Patient not found"
+#~ msgstr "Paciente não encontrado"
+
+#~ msgid "Service not found"
+#~ msgstr "Serviço não encontrado"
+
+#~ msgid "specialty name"
+#~ msgstr "nome da especialidade"
+
+#~ msgid "specialty"
+#~ msgstr "especialidade"
+
+#~ msgid "specialties"
+#~ msgstr "especialidades"
