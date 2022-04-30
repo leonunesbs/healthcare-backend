@@ -15,12 +15,14 @@ class ColaboratorAdmin(admin.ModelAdmin):
 
 @admin.register(core_models.Evaluation)
 class EvaluationAdmin(admin.ModelAdmin):
-    list_display = [f.name for f in core_models.Evaluation._meta.fields]
+    list_display = [
+        f.name for f in core_models.Evaluation._meta.fields]
 
 
 @admin.register(core_models.Patient)
 class PatientAdmin(admin.ModelAdmin):
     list_display = [f.name for f in core_models.Patient._meta.fields] + ['age']
+    list_display.remove('id')
 
     def age(self, obj):
         return obj.age

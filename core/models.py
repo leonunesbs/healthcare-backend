@@ -86,6 +86,7 @@ class Patient(models.Model):
     class Meta:
         verbose_name = _('patient')
         verbose_name_plural = _('patients')
+        ordering = ['full_name']
 
     def __str__(self):
         return self.full_name
@@ -95,6 +96,26 @@ class Patient(models.Model):
         today = timezone.now()
         return today.year - self.birth_date.year - \
             ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+
+    @property
+    def age_in_months(self):
+        today = timezone.now()
+        return (today.year - self.birth_date.year) * 12 + \
+            (today.month - self.birth_date.month) + \
+            ((today.day - self.birth_date.day) < 0)
+
+    @property
+    def age_in_days(self):
+        today = timezone.now()
+        return (today.year - self.birth_date.year) * 365 + \
+            (today.month - self.birth_date.month) * 30 + \
+            (today.day - self.birth_date.day)
+
+    def get_latest_evaluation_date(self):
+        try:
+            return self.evaluations.latest('created_at').created_at
+        except Evaluation.DoesNotExist:
+            return None
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)

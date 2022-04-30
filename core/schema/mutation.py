@@ -53,8 +53,7 @@ class CreateEvaluation(graphene.Mutation):
             raise GraphQLError(_('Service does not exist'))
 
         evaluation, created = Evaluation.objects.get_or_create(
-            # User.objects.all().first().colaborator
-            colaborator=info.context.user.colaborator,
+            colaborator=User.objects.all().first().colaborator,
             patient=patient,
             service=service,
             content=content
