@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-30 09:02-0300\n"
+"POT-Creation-Date: 2022-04-30 12:24-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr "sobrenome"
 msgid "colaborators"
 msgstr "colaboradores"
 
-#: core/models.py:42 core/models.py:159
+#: core/models.py:42 core/models.py:166
 msgid "service"
 msgstr "serviço"
 
@@ -66,7 +66,7 @@ msgstr "telefone"
 msgid "role"
 msgstr "função"
 
-#: core/models.py:58 core/models.py:163 core/models.py:191
+#: core/models.py:58 core/models.py:170 core/models.py:198
 msgid "colaborator"
 msgstr "colaborador"
 
@@ -82,7 +82,7 @@ msgstr "data de nascimento"
 msgid "CPF"
 msgstr "CPF"
 
-#: core/models.py:86 core/models.py:161 core/models.py:185
+#: core/models.py:86 core/models.py:168 core/models.py:192
 msgid "patient"
 msgstr "paciente"
 
@@ -114,42 +114,42 @@ msgstr "ano"
 msgid "years"
 msgstr "anos"
 
-#: core/models.py:146 core/models.py:171
+#: core/models.py:153 core/models.py:178
 msgid "evaluation"
 msgstr "evolução"
 
-#: core/models.py:150
+#: core/models.py:157
 msgid "evaluation attachment"
 msgstr "anexo de evolução"
 
-#: core/models.py:151
+#: core/models.py:158
 msgid "evaluation attachments"
 msgstr "anexos de evolução"
 
-#: core/models.py:164 core/models.py:193
+#: core/models.py:171 core/models.py:200
 msgid "content"
 msgstr "conteúdo"
 
-#: core/models.py:166 core/models.py:197
+#: core/models.py:173 core/models.py:204
 msgid "created at"
 msgstr "criado em"
 
-#: core/models.py:168
+#: core/models.py:175
 msgid "updated at"
 msgstr "atualizado em"
 
-#: core/models.py:172
+#: core/models.py:179
 msgid "evaluations"
 msgstr "evoluções"
 
-#: core/models.py:180 core/models.py:200
+#: core/models.py:187 core/models.py:207
 msgid "prescription"
 msgstr "prescrição"
 
-#: core/models.py:195
+#: core/models.py:202
 msgid "prescription date"
 msgstr "data da prescrição"
 
-#: core/models.py:201
+#: core/models.py:208
 msgid "prescriptions"
 msgstr "prescrição"
