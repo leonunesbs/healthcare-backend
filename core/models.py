@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -111,6 +110,23 @@ class Patient(models.Model):
             (today.month - self.birth_date.month) * 30 + \
             (today.day - self.birth_date.day)
 
+    def get_age_string(self):
+        day, days, month, months, year, years = _('day'), _(
+            'days'), _('month'), _('months'), _('year'), _('years')
+
+        if self.age == 0:
+            if self.age_in_months == 0:
+                if self.age_in_days == 1:
+                    return f'{self.age_in_days} {day}'
+                else:
+                    return f'{self.age_in_days} {days}'
+            elif self.age_in_months == 1:
+                return f'{self.age_in_months} {month}'
+            else:
+                return f'{self.age_in_months} {months}'
+
+        return f'{self.age} {years}'
+
     def get_latest_evaluation_date(self):
         try:
             return self.evaluations.latest('created_at').created_at
@@ -119,6 +135,13 @@ class Patient(models.Model):
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
+        self.full_name = str(self.full_name).strip().upper()
+        if self.email:
+            self.email = str(self.email).strip().lower()
+        if self.phone:
+            self.phone = str(self.phone).strip()
+        if self.cpf:
+            self.cpf = str(self.cpf).strip()
 
     def save(self, *args, **kwargs):
         self.clean_fields()

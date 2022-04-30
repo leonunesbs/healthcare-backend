@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-27 09:58-0300\n"
+"POT-Creation-Date: 2022-04-30 09:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr "sobrenome"
 msgid "colaborators"
 msgstr "colaboradores"
 
-#: core/models.py:42 core/models.py:111
+#: core/models.py:42 core/models.py:159
 msgid "service"
 msgstr "serviço"
 
@@ -58,7 +58,7 @@ msgstr "sobrenome"
 msgid "email"
 msgstr "email"
 
-#: core/models.py:54 core/models.py:77
+#: core/models.py:54 core/models.py:81
 msgid "phone"
 msgstr "telefone"
 
@@ -66,100 +66,90 @@ msgstr "telefone"
 msgid "role"
 msgstr "função"
 
-#: core/models.py:58 core/models.py:115 core/models.py:140
+#: core/models.py:58 core/models.py:163 core/models.py:191
 msgid "colaborator"
 msgstr "colaborador"
 
-#: core/models.py:73
+#: core/models.py:77
 msgid "full name"
 msgstr "nome completo"
 
-#: core/models.py:74
+#: core/models.py:78
 msgid "birth date"
 msgstr "data de nascimento"
 
-#: core/models.py:79
+#: core/models.py:83
 msgid "CPF"
 msgstr "CPF"
 
-#: core/models.py:82 core/models.py:113 core/models.py:134
+#: core/models.py:86 core/models.py:161 core/models.py:185
 msgid "patient"
 msgstr "paciente"
 
-#: core/models.py:83
+#: core/models.py:87
 msgid "patients"
 msgstr "pacientes"
 
-#: core/models.py:98 core/models.py:123
+#: core/models.py:114
+msgid "day"
+msgstr "dia"
+
+#: core/models.py:115
+msgid "days"
+msgstr "dias"
+
+#: core/models.py:115
+msgid "month"
+msgstr "mês"
+
+#: core/models.py:115
+msgid "months"
+msgstr "meses"
+
+#: core/models.py:115
+msgid "year"
+msgstr "ano"
+
+#: core/models.py:115
+msgid "years"
+msgstr "anos"
+
+#: core/models.py:146 core/models.py:171
 msgid "evaluation"
 msgstr "evolução"
 
-#: core/models.py:102
+#: core/models.py:150
 msgid "evaluation attachment"
 msgstr "anexo de evolução"
 
-#: core/models.py:103
+#: core/models.py:151
 msgid "evaluation attachments"
 msgstr "anexos de evolução"
 
-#: core/models.py:116 core/models.py:142
+#: core/models.py:164 core/models.py:193
 msgid "content"
 msgstr "conteúdo"
 
-#: core/models.py:118 core/models.py:146
+#: core/models.py:166 core/models.py:197
 msgid "created at"
 msgstr "criado em"
 
-#: core/models.py:120
+#: core/models.py:168
 msgid "updated at"
 msgstr "atualizado em"
 
-#: core/models.py:124
+#: core/models.py:172
 msgid "evaluations"
 msgstr "evoluções"
 
-#: core/models.py:129 core/models.py:149
+#: core/models.py:180 core/models.py:200
 msgid "prescription"
 msgstr "prescrição"
 
-#: core/models.py:144
+#: core/models.py:195
 msgid "prescription date"
 msgstr "data da prescrição"
 
-#: core/models.py:150
+#: core/models.py:201
 msgid "prescriptions"
 msgstr "prescrição"
-
-#: core/schema/mutation.py:47 core/schema/mutation.py:139
-msgid "Patient does not exist"
-msgstr "Paciente não existe"
-
-#: core/schema/mutation.py:49 core/schema/mutation.py:133
-msgid "Service does not exist"
-msgstr "Serviço não existe"
-
-#: core/schema/mutation.py:110
-msgid "Unit does not exist"
-msgstr "Unidade não existe"
-
-#: core/schema/query.py:22 core/schema/query.py:28
-msgid "You are not allowed to access this data"
-msgstr "Você não está autorizado a acessar esta informação"
-
-#~ msgid "attachment"
-#~ msgstr "anexos"
-
-#~ msgid "Patient not found"
-#~ msgstr "Paciente não encontrado"
-
-#~ msgid "Service not found"
-#~ msgstr "Serviço não encontrado"
-
-#~ msgid "specialty name"
-#~ msgstr "nome da especialidade"
-
-#~ msgid "specialty"
-#~ msgstr "especialidade"
-
-#~ msgid "specialties"
-#~ msgstr "especialidades"

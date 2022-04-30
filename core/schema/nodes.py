@@ -33,18 +33,7 @@ class PatientNode(DjangoObjectType):
         interfaces = (graphene.relay.Node, )
 
     def resolve_age(self, info):
-        if self.age == 0:
-            if self.age_in_months == 0:
-                if self.age_in_days == 1:
-                    return f'{self.age_in_days} {_("day")}'
-                else:
-                    return f'{self.age_in_days} {_("days")}'
-            elif self.age_in_months == 1:
-                return f'{self.age_in_months} {_("month")}'
-            else:
-                return f'{self.age_in_months} {_("months")}'
-
-        return f'{self.age} {_("years")}'
+        return self.get_age_string()
 
 
 class ServiceNode(DjangoObjectType):
