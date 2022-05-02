@@ -2,15 +2,9 @@ import core.schema.mutation as core_mutations
 import core.schema.query as core_query
 import graphene
 import graphql_jwt
+from core.schema.nodes import UserNode
 from django.contrib.auth.models import User
 from graphene_django import DjangoObjectType
-
-
-class UserNode(DjangoObjectType):
-    class Meta:
-        model = User
-        filter_fields = []
-        interfaces = (graphene.relay.Node, )
 
 
 class Query(core_query.Query, graphene.ObjectType):

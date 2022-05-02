@@ -1,18 +1,23 @@
 import graphene
 from core.models import Patient, Service, Unit
-from core.schema.nodes import PatientNode, ServiceNode, UnitNode
 from django.utils.translation import gettext as _
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
 from graphql_relay import from_global_id
 
+from .nodes import PatientNode, ServiceNode, UnitNode, UserNode
+
 
 class Query(graphene.ObjectType):
+    user = graphene.Field(UserNode)
     patient = graphene.Field(PatientNode, id=graphene.ID())
 
     all_patients = DjangoFilterConnectionField(PatientNode)
     all_services = DjangoFilterConnectionField(ServiceNode)
     all_units = DjangoFilterConnectionField(UnitNode)
+
+    def resolve_user(self, info, **kwargs):
+        return info.context.user
 
     def resolve_patient(self, info, id, **kwargs):
         try:
@@ -21,8 +26,8 @@ class Query(graphene.ObjectType):
             raise GraphQLError(_('Patient does not exist'))
 
     def resolve_all_patients(self, info, **kwargs):
-        # if not info.context.user.is_authenticated:
-        #     raise GraphQLError(_('You are not allowed to access this data'))
+        if not info.context.user.is_authenticated:
+            raise GraphQLError(_('You are not allowed to access this data'))
 
         return Patient.objects.all()
 

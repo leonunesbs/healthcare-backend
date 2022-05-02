@@ -20,6 +20,9 @@ class CreatePatient(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, full_name, birth_date, email=None, phone=None):
+        if not info.context.user.is_authenticated:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
         patient, created = Patient.objects.get_or_create(
             full_name=full_name,
             birth_date=birth_date,
@@ -35,6 +38,7 @@ class UpdatePatient(graphene.Mutation):
         patient_id = graphene.ID(required=True)
         full_name = graphene.String()
         birth_date = graphene.DateTime()
+        cpf = graphene.String()
         email = graphene.String()
         phone = graphene.String()
 
@@ -42,13 +46,21 @@ class UpdatePatient(graphene.Mutation):
     patient = graphene.Field(PatientNode)
 
     @classmethod
-    def mutate(cls, root, info, patient_id, full_name=None, birth_date=None, email=None, phone=None):
-        patient = Patient.objects.get(pk=from_global_id(patient_id)[1])
+    def mutate(cls, root, info, patient_id, full_name=None,  birth_date=None, cpf=None, email=None, phone=None):
+        if not info.context.user.is_authenticated:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
+        try:
+            patient = Patient.objects.get(pk=from_global_id(patient_id)[1])
+        except Patient.DoesNotExist:
+            raise GraphQLError(_('Patient does not exist'))
 
         if full_name is not None:
             patient.full_name = full_name
         if birth_date is not None:
             patient.birth_date = birth_date
+        if cpf is not None:
+            patient.cpf = cpf
         if email is not None:
             patient.email = email
         if phone is not None:
@@ -70,9 +82,9 @@ class CreateEvaluation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, patient_id, service_id, content):
-        if not info.context.user.is_authenticated is False:
+        if info.context.user.is_authenticated is False:
             raise GraphQLError(
-                _('You must be logged in to create an evaluation.'))
+                _('You must be logged in to perform this action'))
         try:
             patient = Patient.objects.get(id=from_global_id(patient_id)[1])
             service = Service.objects.get(id=from_global_id(service_id)[1])
@@ -82,7 +94,7 @@ class CreateEvaluation(graphene.Mutation):
             raise GraphQLError(_('Service does not exist'))
 
         evaluation, created = Evaluation.objects.get_or_create(
-            colaborator=User.objects.all().first().colaborator,
+            colaborator=info.context.user.colaborator,
             patient=patient,
             service=service,
             content=content
@@ -101,6 +113,9 @@ class UpdateEvaluation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, evaluation_id, content):
+        if info.context.user.is_authenticated is False:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
         evaluation = Evaluation.objects.get(
             id=from_global_id(evaluation_id)[1])
         evaluation.content = content
@@ -120,6 +135,10 @@ class CreateUnit(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, name):
+        if info.context.user.is_authenticated is False:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
+
         unit, created = Unit.objects.get_or_create(
             name=name
         )
@@ -137,6 +156,9 @@ class CreateService(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, unit_id, name):
+        if info.context.user.is_authenticated is False:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
         try:
             unit = Unit.objects.get(id=from_global_id(unit_id)[1])
         except Unit.DoesNotExist:
@@ -160,6 +182,10 @@ class AddServiceColaborator(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, service_id, colaborator_id):
+        if info.context.user.is_authenticated is False:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
+
         try:
             service = Service.objects.get(id=from_global_id(service_id)[1])
         except Service.DoesNotExist:
