@@ -12,6 +12,7 @@ class CreatePatient(graphene.Mutation):
     class Arguments:
         full_name = graphene.String(required=True)
         birth_date = graphene.DateTime(required=True)
+        cpf = graphene.String()
         email = graphene.String()
         phone = graphene.String()
 
@@ -19,13 +20,14 @@ class CreatePatient(graphene.Mutation):
     patient = graphene.Field(PatientNode)
 
     @classmethod
-    def mutate(cls, root, info, full_name, birth_date, email=None, phone=None):
+    def mutate(cls, root, info, full_name, birth_date, cpf=None, email=None, phone=None):
         if not info.context.user.is_authenticated:
             raise GraphQLError(
                 _('You must be logged in to perform this action'))
         patient, created = Patient.objects.get_or_create(
             full_name=full_name,
             birth_date=birth_date,
+            cpf=cpf,
             email=email,
             phone=phone
         )
