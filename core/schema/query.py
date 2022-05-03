@@ -20,6 +20,8 @@ class Query(graphene.ObjectType):
         return info.context.user
 
     def resolve_patient(self, info, id, **kwargs):
+        if not info.context.user.is_authenticated:
+            raise GraphQLError(_('You are not allowed to access this data'))
         try:
             return Patient.objects.get(pk=from_global_id(id)[1])
         except Patient.DoesNotExist:
