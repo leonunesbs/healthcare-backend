@@ -25,14 +25,31 @@ class CreatePatient(graphene.Mutation):
             raise GraphQLError(
                 _('You must be logged in to perform this action'))
         patient, created = Patient.objects.get_or_create(
-            full_name=full_name,
+            full_name=full_name.strip().upper(),
             birth_date=birth_date,
             cpf=cpf,
-            email=email,
-            phone=phone
+            email=email.strip(),
+            phone=phone.strip()
         )
 
         return CreatePatient(created=created, patient=patient)
+
+
+class DeletePatient(graphene.Mutation):
+    class Arguments:
+        patient_id = graphene.ID(required=True)
+
+    deleted = graphene.Boolean()
+
+    @classmethod
+    def mutate(cls, root, info, patient_id):
+        if not info.context.user.is_authenticated:
+            raise GraphQLError(
+                _('You must be logged in to perform this action'))
+        patient_id = from_global_id(patient_id)[1]
+        patient = Patient.objects.get(id=patient_id)
+        patient.delete()
+        return DeletePatient(deleted=True)
 
 
 class UpdatePatient(graphene.Mutation):
@@ -209,6 +226,7 @@ class AddServiceColaborator(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     create_patient = CreatePatient.Field()
+    delete_patient = DeletePatient.Field()
     update_patient = UpdatePatient.Field()
     create_evaluation = CreateEvaluation.Field()
     update_evaluation = UpdateEvaluation.Field()
