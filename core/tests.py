@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
-from core.models import Colaborator, Evaluation, Patient, Service, Unit
+from core.models import Collaborator, Evaluation, Patient, Service, Unit
 
 
 class TestUnitModel(TestCase):
@@ -18,10 +18,10 @@ class TestServiceModel(TestCase):
         self.assertEqual(service.name, 'service')
 
 
-class TestColaboratorModel(TestCase):
-    def test_colaborator_model(self):
+class TestCollaboratorModel(TestCase):
+    def test_collaborator_model(self):
         user = User.objects.create_user(username='user', password='pass')
-        colaborator = Colaborator.objects.create(
+        collaborator = Collaborator.objects.create(
             user=user,
             name='name',
             surname='surname',
@@ -29,7 +29,7 @@ class TestColaboratorModel(TestCase):
             phone='phone',
             role='role'
         )
-        self.assertEqual(colaborator.name, 'name')
+        self.assertEqual(collaborator.name, 'name')
 
 
 class TestPatientModel(TestCase):
@@ -38,7 +38,7 @@ class TestPatientModel(TestCase):
             full_name='full name',
             birth_date=timezone.now()
         )
-        self.assertEqual(patient.full_name, 'full name')
+        self.assertEqual(patient.full_name, 'FULL NAME')
 
 
 class TestEvaluationModel(TestCase):
@@ -48,7 +48,7 @@ class TestEvaluationModel(TestCase):
                 full_name='full name',
                 birth_date=timezone.now()
             ),
-            colaborator=Colaborator.objects.create(
+            collaborator=Collaborator.objects.create(
                 user=User.objects.create_user(
                     username='user', password='pass'),
                 name='name',

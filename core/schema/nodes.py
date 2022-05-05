@@ -1,5 +1,5 @@
 import graphene
-from core.models import Colaborator, Evaluation, Patient, Service, Unit
+from core.models import Collaborator, Evaluation, Patient, Service, Unit
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
@@ -12,11 +12,11 @@ class UserNode(DjangoObjectType):
         interfaces = (graphene.relay.Node, )
 
 
-class ColaboratorNode(DjangoObjectType):
+class CollaboratorNode(DjangoObjectType):
     full_name = graphene.String()
 
     class Meta:
-        model = Colaborator
+        model = Collaborator
         filter_fields = []
         interfaces = (graphene.relay.Node, )
 

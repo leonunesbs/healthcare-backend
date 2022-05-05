@@ -8,8 +8,8 @@ class EvaluationAttachmentAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(core_models.Colaborator)
-class ColaboratorAdmin(admin.ModelAdmin):
+@admin.register(core_models.Collaborator)
+class CollaboratorAdmin(admin.ModelAdmin):
     pass
 
 

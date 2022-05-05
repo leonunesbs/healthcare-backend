@@ -1,4 +1,5 @@
 from django.db import models
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -30,10 +31,10 @@ class Service(models.Model):
         verbose_name=_('name'),
         help_text=_('service name'),
     )
-    colaborators = models.ManyToManyField(
-        'core.Colaborator',
-        verbose_name=_('colaborators'),
-        help_text=_('colaborators'),
+    collaborators = models.ManyToManyField(
+        'core.Collaborator',
+        verbose_name=_('collaborators'),
+        help_text=_('collaborators'),
         related_name='services',
         blank=True,
     )
@@ -46,7 +47,7 @@ class Service(models.Model):
         return self.name
 
 
-class Colaborator(models.Model):
+class Collaborator(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=255, verbose_name=_('name'))
     surname = models.CharField(max_length=255, verbose_name=_('surname'))
@@ -55,8 +56,8 @@ class Colaborator(models.Model):
     role = models.CharField(max_length=255, verbose_name=_('role'))
 
     class Meta:
-        verbose_name = _('colaborator')
-        verbose_name_plural = _('colaborators')
+        verbose_name = _('collaborator')
+        verbose_name_plural = _('collaborators')
 
     def __str__(self):
         return self.name
@@ -67,6 +68,14 @@ class Colaborator(models.Model):
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
+        self.name = str(self.name).strip().upper()
+        self.surname = str(self.surname).strip().upper()
+        if self.email:
+            self.email = str(self.email).strip().lower()
+        if self.phone:
+            self.phone = str(self.phone).strip()
+        if self.role:
+            self.role = str(self.role).strip().upper()
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -166,8 +175,8 @@ class Evaluation(models.Model):
         'service'), related_name='evaluations')
     patient = models.ForeignKey(
         'core.Patient', on_delete=models.CASCADE, related_name='evaluations', verbose_name=_('patient'))
-    colaborator = models.ForeignKey(
-        'core.Colaborator', on_delete=models.CASCADE, related_name='evaluations', verbose_name=_('colaborator'))
+    collaborator = models.ForeignKey(
+        'core.Collaborator', on_delete=models.CASCADE, related_name='evaluations', verbose_name=_('collaborator'))
     content = models.TextField(verbose_name=_('content'))
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name=_('created at'))
@@ -177,6 +186,7 @@ class Evaluation(models.Model):
     class Meta:
         verbose_name = _('evaluation')
         verbose_name_plural = _('evaluations')
+        ordering = ['-created_at']
 
     def __str__(self):
         return str(self.patient)
@@ -191,11 +201,11 @@ class Prescription(models.Model):
         related_name='prescriptions',
         verbose_name=_('patient'),
     )
-    colaborator = models.ForeignKey(
-        'core.Colaborator',
+    collaborator = models.ForeignKey(
+        'core.Collaborator',
         on_delete=models.CASCADE,
         related_name='prescriptions',
-        verbose_name=_('colaborator'),
+        verbose_name=_('collaborator'),
     )
     content = models.TextField(verbose_name=_('content'))
     prescription_date = models.DateField(

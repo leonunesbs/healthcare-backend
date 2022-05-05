@@ -75,15 +75,15 @@ class UpdatePatient(graphene.Mutation):
             raise GraphQLError(_('Patient does not exist'))
 
         if full_name is not None:
-            patient.full_name = full_name
+            patient.full_name = full_name.strip().upper()
         if birth_date is not None:
             patient.birth_date = birth_date
         if cpf is not None:
-            patient.cpf = cpf
+            patient.cpf = cpf.strip()
         if email is not None:
-            patient.email = email
+            patient.email = email.strip().lower()
         if phone is not None:
-            patient.phone = phone
+            patient.phone = phone.strip()
 
         patient.save()
 
@@ -113,7 +113,7 @@ class CreateEvaluation(graphene.Mutation):
             raise GraphQLError(_('Service does not exist'))
 
         evaluation, created = Evaluation.objects.get_or_create(
-            colaborator=info.context.user.colaborator,
+            collaborator=info.context.user.collaborator,
             patient=patient,
             service=service,
             content=content
@@ -191,16 +191,16 @@ class CreateService(graphene.Mutation):
         return CreateService(created=created, service=service)
 
 
-class AddServiceColaborator(graphene.Mutation):
+class AddServiceCollaborator(graphene.Mutation):
     class Arguments:
         service_id = graphene.ID(required=True)
-        colaborator_id = graphene.ID(required=True)
+        collaborator_id = graphene.ID(required=True)
 
     ok = graphene.Boolean()
     service = graphene.Field(ServiceNode)
 
     @classmethod
-    def mutate(cls, root, info, service_id, colaborator_id):
+    def mutate(cls, root, info, service_id, collaborator_id):
         if info.context.user.is_authenticated is False:
             raise GraphQLError(
                 _('You must be logged in to perform this action'))
@@ -211,17 +211,17 @@ class AddServiceColaborator(graphene.Mutation):
             raise GraphQLError(_('Service does not exist'))
 
         try:
-            colaborator = Patient.objects.get(
-                id=from_global_id(colaborator_id)[1])
+            collaborator = Patient.objects.get(
+                id=from_global_id(collaborator_id)[1])
         except Patient.DoesNotExist:
             raise GraphQLError(_('Patient does not exist'))
 
-        service.colaborators.add(colaborator)
-        service.colaborators.save()
+        service.collaborators.add(collaborator)
+        service.collaborators.save()
 
         ok = True
 
-        return AddServiceColaborator(ok=ok, service=service)
+        return AddServiceCollaborator(ok=ok, service=service)
 
 
 class Mutation(graphene.ObjectType):
@@ -234,4 +234,4 @@ class Mutation(graphene.ObjectType):
     create_unit = CreateUnit.Field()
 
     create_service = CreateService.Field()
-    add_service_colaborator = AddServiceColaborator.Field()
+    add_service_collaborator = AddServiceCollaborator.Field()
